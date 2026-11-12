@@ -1,0 +1,1703 @@
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: Georgia, serif;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  color: #222;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+footer {
+  border-top: 1px solid #ccc;
+  margin-top: 2rem;
+  padding-top: 0.5rem;
+  color: #666;
+  font-size: 0.85rem;
+}
+
+header {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 2rem;
+  padding-bottom: 0.5rem;
+}
+
+header nav {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+
+header a {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+
+header a.secondary {
+  font-size: 0.95rem;
+  font-weight: normal;
+  color: #666;
+}
+
+header a.secondary:hover { color: #333; }
+
+header span.secondary,
+header span.secondary a {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+header span.secondary a:hover { color: #333; }
+
+header details.secondary > summary {
+  font-size: 0.75rem;
+  color: #888;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+
+header details.secondary > summary::-webkit-details-marker { display: none; }
+header details.secondary > summary::marker { display: none; }
+
+header details.secondary {
+  position: relative;
+}
+
+header .view-as,
+header span.secondary {
+  margin-left: auto;
+}
+
+header details.secondary > ul {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 0.3rem 0;
+  list-style: none;
+  margin: 0.2rem 0 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  white-space: nowrap;
+}
+
+header details.secondary > ul > li > a {
+  display: block;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-weight: normal;
+  color: #888;
+  text-decoration: none;
+}
+
+header details.secondary > ul > li > a:hover { color: #333; }
+
+.nav-links { display: contents; }
+
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  font-size: 1.1rem;
+  cursor: pointer;
+  color: #555;
+  margin-left: auto;
+}
+
+.expand-td, .row-detail { display: none; }
+
+.tabs-toggle {
+  display: none;
+  background: none;
+  border: none;
+  padding: 0.4rem 0.8rem;
+  cursor: pointer;
+  color: #888;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+@media (max-width: 680px) {
+  body { padding: 0.75rem 1rem; }
+
+  .person-tabs {
+    flex-wrap: wrap;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  .person-tabs a,
+  .person-tabs span {
+    border-bottom: none;
+    margin-bottom: 0;
+    border-left: 3px solid transparent;
+    white-space: normal;
+  }
+
+  .person-tabs span.active {
+    flex: 1;
+    border-bottom-color: transparent;
+    border-left-color: #5a3e28;
+    background: #f8f5f0;
+  }
+
+  .person-tabs a {
+    display: none;
+    width: 100%;
+    border-top: 1px solid #eee;
+  }
+
+  .person-tabs.open a { display: block; }
+
+  .tabs-toggle { display: block; }
+
+  .events th:nth-child(4),
+  .events td:nth-child(4),
+  .events th:nth-child(5),
+  .events td:nth-child(5) { display: none; }
+
+  .expand-td { display: table-cell; }
+  .row-detail.open { display: table-row; }
+}
+
+/* Place pages */
+.place-enclosing {
+  margin-top: -0.75rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+
+.place-type {
+  font-size: 0.6rem;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #4a6080;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+}
+
+.event-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 0.75rem;
+}
+
+.filter-btn {
+  font-family: inherit;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background: white;
+  color: #555;
+  cursor: pointer;
+}
+
+.filter-btn:hover { border-color: #5a3e28; color: #5a3e28; }
+.filter-btn.active { background: #5a3e28; border-color: #5a3e28; color: white; }
+
+#map, #events-map, #census-map, #index-map {
+  height: 400px;
+  border-radius: 6px;
+  margin: 1rem 0;
+  isolation: isolate;
+}
+
+.events-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.events-table th, .events-table td {
+  text-align: left;
+  padding: 0.3rem 1rem 0.3rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.events-table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+}
+
+.events-table .year {
+  color: #888;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.photo-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.3em;
+  opacity: 0.4;
+}
+
+.photo-icon svg {
+  fill: currentColor;
+}
+
+.no-photo-icon {
+  opacity: 0.2;
+}
+
+.tag-icon {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 0.3em;
+}
+
+.tag-icon.interesting { color: #b8860b; }
+.tag-icon.conflict { color: #c0392b; }
+
+/* Search page */
+#search, #name-search, #people-search {
+  font-size: 1rem;
+  font-family: inherit;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 0.75rem;
+}
+
+#count {
+  color: #888;
+  font-size: 0.9em;
+  margin: 0 0 0.75rem;
+}
+
+#people-table, #places-table, #surnames-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#people-table th, #people-table td,
+#places-table th, #places-table td,
+#surnames-table th, #surnames-table td {
+  text-align: left;
+  padding: 0.3rem 1rem 0.3rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+#people-table th, #places-table th, #surnames-table th {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666;
+  user-select: none;
+  cursor: pointer;
+}
+
+th.sortable { white-space: nowrap; cursor: pointer; }
+th.sortable::after { content: ' ↕'; opacity: 0.3; }
+th.sort-asc::after { content: ' ↓'; opacity: 1; }
+th.sort-desc::after { content: ' ↑'; opacity: 1; }
+
+#people-table td:nth-child(n+2) { color: #666; font-size: 0.9em; }
+
+h1 { margin-top: 0; margin-bottom: 0.25rem; }
+h2 { font-size: 1.1rem; text-transform: uppercase; letter-spacing: 0.05em; color: #444; margin-top: 2rem; }
+h3 { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.05em; color: #666; margin-top: 1.5rem; margin-bottom: 0; }
+
+a { color: #5a3e28; }
+a:hover { color: #222; }
+
+.years { color: #666; font-size: 0.9em; }
+
+.person-header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1.5rem;
+  align-items: start;
+  margin-bottom: 1rem;
+}
+
+.person-header-info {
+  min-width: 0;
+}
+
+.person-alt-names {
+  color: #888;
+  font-size: 0.85em;
+  margin: 0.15rem 0 0;
+  font-style: italic;
+}
+
+.alt-surnames {
+  color: #aaa;
+  font-size: 0.85em;
+  font-style: italic;
+  margin-left: 0.3em;
+}
+
+.person-meta-table {
+  border-collapse: collapse;
+  margin: 0.3rem 0 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.person-meta-table td {
+  padding: 0.1rem 0.5rem 0.1rem 0;
+  vertical-align: middle;
+}
+
+.person-meta-table td:first-child {
+  white-space: nowrap;
+}
+
+.person-header-photo {
+  width: 160px;
+  min-height: 180px;
+  flex-shrink: 0;
+}
+
+.person-header-photo .person-photo {
+  width: 160px;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 4px;
+  display: block;
+}
+
+.profile-link {
+  font-size: 0.6rem;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 6px;
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 0.5rem;
+  text-decoration: none;
+  color: white;
+}
+
+.profile-link.ancestry { background: #367d3a; }
+.profile-link.ancestry:hover { background: #2a5f2d; color: white; }
+
+
+
+.person-tabs {
+  display: flex;
+  gap: 0;
+  margin: 0.5rem 0 1.5rem;
+  border-bottom: 2px solid #ddd;
+}
+
+.person-tabs a,
+.person-tabs span {
+  padding: 0.4rem 1rem;
+  text-decoration: none;
+  color: #888;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.person-tabs a:hover {
+  color: #5a3e28;
+  border-bottom-color: #c4a882;
+}
+
+.person-tabs span.active {
+  color: #5a3e28;
+  border-bottom-color: #5a3e28;
+  font-weight: bold;
+}
+
+.tab-count {
+  color: #aaa;
+  font-size: 0.9em;
+}
+
+.ancestor-badge.male {
+  background: #8aafc8;
+}
+
+.ancestor-badge.female {
+  background: #c88aaf;
+}
+
+.ancestor-badge.me {
+  background: #2a5a3e;
+}
+
+.ancestor-badge.living {
+  background: #4a8a5a;
+}
+
+.ancestor-badge.deceased {
+  background: #999;
+}
+
+.ancestor-badge.relative {
+  background: #6a5a9a;
+}
+
+.ancestor-badge.by-marriage {
+  background: #9a6a2a;
+}
+
+.ancestor-badge.unrelated {
+  background: #bbb;
+}
+
+.ancestor-badge.descendant {
+  background: #1a5a7a;
+}
+
+.birthday-people {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.ancestor-badge {
+  font-size: 0.6rem;
+  font-family: sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background: #5a3e28;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+
+.ancestor-badge.ancestry {
+  background: #2a7a3b;
+}
+
+.ancestor-badge.grave {
+  background: #555;
+}
+
+/* Marriage event — spouse details side by side */
+.couple-details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 2rem;
+  margin: 1.5rem 0;
+}
+
+.spouse-detail h2 {
+  margin-top: 0;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+@media (max-width: 580px) {
+  .couple-details { grid-template-columns: 1fr; }
+}
+
+/* Event detail page */
+pre.event-note {
+  font-family: Georgia, serif;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  background: #f8f5f0;
+  border-left: 3px solid #c4a882;
+  padding: 0.75rem 1rem;
+  margin: 0.5rem 0 1rem;
+  line-height: 1.5;
+}
+
+.photos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.person-photo {
+  max-height: 220px;
+  max-width: 100%;
+  border-radius: 4px;
+  display: block;
+}
+
+/* Index tree */
+.tree .generation {
+  margin-bottom: 2rem;
+}
+
+.tree ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.tree li a {
+  color: #5a3e28;
+  text-decoration: none;
+  border-bottom: 1px solid #c4a882;
+}
+
+.tree li a:hover { border-color: #5a3e28; }
+
+/* Events table */
+.events table {
+  border-collapse: collapse;
+  margin-top: 0.5rem;
+}
+
+.events th, .events td {
+  text-align: left;
+  padding: 0.2rem 1rem 0.2rem 0;
+  vertical-align: top;
+}
+
+.event-age {
+  color: #888;
+  font-size: 0.85em;
+}
+
+.row-expand-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #888;
+  padding: 0 0.2rem;
+  font-size: 0.85rem;
+  line-height: 1;
+}
+
+.row-detail td {
+  padding: 0.1rem 0 0.5rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.events th {
+  font-weight: normal;
+  color: #666;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+/* Person detail */
+.person-detail .events,
+.person-detail .profile-overview,
+.person-detail .relation-path,
+.person-detail .ancestors,
+.person-detail .descendants {
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.5rem;
+}
+
+.person-detail .relation-path { background: #f7f5ef; }
+.person-detail .relation-path h2 { margin-top: 0; }
+.relation-path ol { list-style: none; padding: 0; margin: 0.5rem 0 0; }
+.relation-path li { margin: 0.3rem 0; }
+.path-hop {
+  display: inline-block;
+  min-width: 7.5em;
+  color: #666;
+  font-size: 0.9em;
+}
+.path-arrow { display: inline-block; width: 1em; color: #999; }
+.relation-path li.common-ancestor > a { font-weight: bold; }
+
+.spouse-shared-ancestry {
+  margin: 0.65rem 0 0.35rem;
+  padding: 0.75rem 1rem;
+  border-left: 3px solid #b58b45;
+  background: #f7f5ef;
+  border-radius: 0 6px 6px 0;
+  font-size: 0.92em;
+}
+.shared-ancestor { margin-top: 0.65rem; }
+.shared-ancestor-title { margin-bottom: 0.35rem; }
+.shared-ancestor-paths {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem 1.25rem;
+}
+.shared-ancestor-paths ol {
+  list-style: none;
+  margin: 0.2rem 0 0;
+  padding: 0;
+}
+.shared-ancestor-paths li {
+  margin: 0.3rem 0;
+}
+.shared-ancestor-paths .path-hop {
+  min-width: 7.5em;
+}
+.shared-ancestor-paths .path-arrow {
+  width: 1em;
+}
+@media (max-width: 600px) {
+  .shared-ancestor-paths { grid-template-columns: 1fr; }
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.4rem 1.5rem;
+  margin: 0.5rem 0 0;
+}
+
+.profile-overview {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.person-detail .events { background: #fdf8f3; }
+.person-detail .profile-overview { background: #f0f5fb; }
+.person-detail .ancestors { background: #f0f7f2; }
+.person-detail .descendants { background: #f7f0fb; }
+
+.person-detail .events h2,
+.person-detail .ancestors h2,
+.person-detail .descendants h2 {
+  margin-top: 0;
+}
+
+a.male:not(.pedigree-cell)::after { content: " \2642"; color: #3a6f9a; }
+a.female:not(.pedigree-cell)::after { content: " \2640"; color: #9a3a6f; }
+
+.person-detail .ancestors h3,
+.person-detail .descendants h3 {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+  margin: 1rem 0 0.25rem;
+}
+
+.person-detail section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0.25rem 0 0;
+}
+
+.person-detail section li {
+  margin: 0.25rem 0;
+}
+
+/* Summary / homepage */
+.summary-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin: 1.5rem 0 2.5rem;
+  flex-wrap: wrap;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #5a3e28;
+  line-height: 1.1;
+}
+
+.pct-text {
+  display: inline-block;
+  width: 2.5rem;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.pct-bar {
+  display: inline-block;
+  width: 100px;
+  height: 8px;
+  background: #e0e0e0;
+  border-radius: 4px;
+  vertical-align: middle;
+  margin-left: 6px;
+}
+
+.pct-bar > .pct-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  vertical-align: top;
+}
+
+.pct-high, .pct-mid, .pct-low {
+  font-size: 0.6rem;
+  font-family: sans-serif;
+  color: white;
+  padding: 2px 5px;
+  border-radius: 3px;
+  vertical-align: middle;
+}
+.pct-high { background: #2a7a3e; }
+.pct-mid  { background: #a06010; }
+.pct-low  { background: #b03020; }
+
+.stat-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #888;
+}
+
+ul.pdf-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.pdf-links li {
+  margin-bottom: 0.25rem;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}
+
+.summary-grid .full-width {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 580px) {
+  .summary-grid { grid-template-columns: 1fr; }
+}
+
+.summary-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.summary-table td {
+  padding: 0.2rem 1rem 0.2rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+/* Pedigree / ancestor tree */
+.pedigree-wrap {
+  overflow-x: auto;
+  margin-top: 1.5rem;
+}
+
+.pedigree-chart {
+  display: grid;
+  gap: 4px;
+  min-width: 600px;
+}
+
+.pedigree-cell {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.85rem;
+  overflow: hidden;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.pedigree-cell:hover {
+  border-color: #5a3e28;
+  background: #fdf8f3;
+  color: #5a3e28;
+}
+
+.pedigree-cell.gen-0 {
+  border-width: 2px;
+}
+
+.pedigree-cell.male {
+  background: #dbe8f5;
+  border-color: #8aafc8;
+}
+
+.pedigree-cell.male:hover {
+  background: #c8daf0;
+  border-color: #5a3e28;
+}
+
+.pedigree-cell.female {
+  background: #f5dbe8;
+  border-color: #c88aaf;
+}
+
+.pedigree-cell.female:hover {
+  background: #f0c8da;
+  border-color: #5a3e28;
+}
+
+.pedigree-name {
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pedigree-years {
+  font-size: 0.8em;
+  color: #888;
+  white-space: nowrap;
+}
+
+.pedigree-children {
+  font-size: 0.75em;
+  color: #aaa;
+  white-space: nowrap;
+}
+
+.pedigree-cell.has-further {
+  position: relative;
+  padding-right: 1.4rem;
+}
+
+.pedigree-cell.has-further::after {
+  content: '›';
+  position: absolute;
+  right: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #c4a882;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.pedigree-cell.has-further-down {
+  position: relative;
+  padding-bottom: 1.4rem;
+}
+
+.pedigree-cell.has-further-down::after {
+  content: '↓';
+  position: absolute;
+  bottom: 0.3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #c4a882;
+  font-size: 1.2em;
+  line-height: 1;
+}
+
+.pictures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.picture-item {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #eee;
+}
+
+.picture-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+}
+
+.picture-item:hover img {
+  opacity: 0.85;
+}
+
+.picture-caption {
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.picture-year {
+  color: #999;
+  flex-shrink: 0;
+}
+
+.ancestor-records-table th:not(:first-child),
+.ancestor-records-table td:not(:first-child) {
+  text-align: center;
+  width: 5rem;
+}
+
+.census-records-scroll {
+  overflow-x: auto;
+}
+
+.census-records-table th:not(:first-child),
+.census-records-table td:not(:first-child) {
+  text-align: center;
+  width: 4rem;
+}
+
+.record-check {
+  font-size: 1rem;
+}
+
+.has-record {
+  color: #2a7a3b;
+}
+
+.missing-record {
+  color: #c0392b;
+}
+
+.record-na {
+  color: #999;
+}
+
+.duplicate-warning {
+  color: #c0392b;
+}
+
+/* Explore page */
+.explore-help { color: #666; font-size: 0.85em; margin-left: auto; }
+.explore-toolbar { display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap; margin-bottom: 0.75rem; }
+.explore-toolbar h1 { margin: 0 0.5rem 0 0; font-size: 1.4rem; }
+.explore-toolbar input[type="search"] { width: 18rem; max-width: 100%; padding: 0.35rem 0.5rem; }
+.explore-toolbar button { padding: 0.35rem 0.7rem; cursor: pointer; }
+.explore-wrap { overflow: auto; border: 1px solid #e5e5e5; border-radius: 8px; background: #fafafa; }
+.ex-tree { display: inline-flex; justify-content: center; min-width: 100%; padding: 1.5rem 1rem; box-sizing: border-box; }
+.ex-node { display: flex; flex-direction: column; align-items: center; position: relative; }
+
+.ex-box {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 150px;
+  max-width: 190px;
+  padding: 1.1rem 0.6rem 1.2rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background: white;
+  font-size: 0.85rem;
+  text-align: center;
+  box-sizing: border-box;
+}
+.ex-box.male { background: #dbe8f5; }
+.ex-box.female { background: #f5dbe8; }
+.ex-box.ex-focus { border: 2px solid #5a3e28; }
+.ex-box.ex-small { min-width: 0; padding: 0.3rem 0.5rem; font-size: 0.8rem; }
+.ex-name { color: inherit; text-decoration: none; font-weight: 600; }
+.ex-name:hover { text-decoration: underline; }
+.ex-years, .ex-rel { display: block; color: #666; font-size: 0.8em; }
+.ex-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid #bbb;
+  border-radius: 10px;
+  background: white;
+  color: #5a3e28;
+  font-size: 0.7rem;
+  line-height: 1;
+  padding: 2px 7px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ex-btn:hover { background: #fdf8f3; border-color: #5a3e28; }
+.ex-up { top: -9px; }
+.ex-down { bottom: -9px; }
+.ex-centre { left: auto; right: 4px; top: 4px; transform: none; padding: 1px 5px; border-color: transparent; background: transparent; }
+.ex-centre:hover { border-color: #bbb; }
+.ex-sibs { font-size: 0.8em; color: #666; margin-top: 0.4rem; max-width: 260px; text-align: center; }
+
+/* Parents above: connector down to the child box */
+.ex-parents { display: flex; gap: 1rem; align-items: flex-end; padding-bottom: 1.25rem; position: relative; }
+.ex-parents > .ex-node::after {
+  content: ''; position: absolute; left: 50%; bottom: -1.25rem; height: 1.25rem; border-left: 1px solid #bbb;
+}
+.ex-parents > .ex-node:first-child:not(:last-child)::before,
+.ex-parents > .ex-node:last-child:not(:first-child)::before {
+  content: ''; position: absolute; bottom: -1.25rem; width: calc(50% + 0.5rem); border-bottom: 1px solid #bbb;
+}
+.ex-parents > .ex-node:first-child:not(:last-child)::before { left: 50%; }
+.ex-parents > .ex-node:last-child:not(:first-child)::before { right: 50%; }
+
+/* Families below: connector up to the parent box */
+.ex-fams { display: flex; gap: 1.5rem; align-items: flex-start; padding-top: 1.25rem; position: relative; }
+.ex-fams::before { content: ''; position: absolute; top: 0; left: 50%; height: 1.25rem; border-left: 1px solid #bbb; }
+.ex-fam { display: flex; flex-direction: column; align-items: center; }
+.ex-partner { display: flex; align-items: center; gap: 0.4rem; font-size: 0.8em; color: #666; }
+.ex-kids { display: flex; gap: 0.75rem; align-items: flex-start; padding-top: 1.25rem; position: relative; }
+.ex-kids > .ex-node::before {
+  content: ''; position: absolute; left: 50%; top: -1.25rem; height: 1.25rem; border-left: 1px solid #bbb;
+}
+.ex-kids > .ex-node:first-child:not(:last-child)::after,
+.ex-kids > .ex-node:last-child:not(:first-child)::after {
+  content: ''; position: absolute; top: -1.25rem; width: calc(50% + 0.375rem); border-top: 1px solid #bbb;
+}
+.ex-kids > .ex-node:first-child:not(:last-child)::after { left: 50%; }
+.ex-kids > .ex-node:last-child:not(:first-child)::after { right: 50%; }
+.ex-kids > .ex-node:not(:first-child):not(:last-child)::after {
+  content: ''; position: absolute; top: -1.25rem; left: -0.375rem; right: -0.375rem; border-top: 1px solid #bbb;
+}
+.ex-parents > .ex-node:not(:first-child):not(:last-child)::before {
+  content: ''; position: absolute; bottom: -1.25rem; left: -0.5rem; right: -0.5rem; border-bottom: 1px solid #bbb;
+}
+
+.census-people .census-count {
+  display: inline-block;
+  min-width: 1.5em;
+  cursor: help;
+}
+
+/* Miniature family tree on census event pages */
+.census-tree { margin-bottom: 1.5rem; --ct-w: 160px; --ct-gap: 1.5rem; --ct-drop: 1.25rem; --ct-line: #bbb; }
+.census-tree .ex-tree { gap: 2.5rem; padding: 1rem; }
+.census-tree .ex-box { width: var(--ct-w); min-width: 0; max-width: none; flex: none; padding: 0.5rem 0.6rem; }
+.ct-node { display: flex; flex-direction: column; align-items: center; position: relative; }
+.ct-couple { display: flex; align-items: center; }
+.ct-marriage { width: var(--ct-gap); flex: none; border-top: 2px solid var(--ct-line); }
+.ct-marriage.unmarried { border-top-style: dashed; }
+/* Below the top generation, keep the person's own box centred so the line from their parents lands on them */
+.ct-kids .ct-couple.has-partner { padding-left: calc(var(--ct-w) + var(--ct-gap)); }
+.ct-kids .ct-node.has-partner > .ct-fams { margin-left: calc(var(--ct-w) + var(--ct-gap)); }
+/* Family groups below a couple: one drop line from the marriage line, then a bar across groups when there are several */
+.ct-fams { display: flex; gap: var(--ct-gap); align-items: flex-start; padding-top: var(--ct-drop); position: relative; }
+.ct-fams::before { content: ''; position: absolute; top: 0; left: 50%; height: var(--ct-drop); border-left: 1px solid var(--ct-line); }
+.ct-fam { display: flex; flex-direction: column; align-items: center; position: relative; }
+.ct-fams.multi > .ct-fam::before {
+  content: ''; position: absolute; left: 50%; top: calc(-1 * var(--ct-drop)); height: var(--ct-drop); border-left: 1px solid var(--ct-line);
+}
+.ct-fams.multi > .ct-fam:first-child:not(:last-child)::after,
+.ct-fams.multi > .ct-fam:last-child:not(:first-child)::after {
+  content: ''; position: absolute; top: calc(-1 * var(--ct-drop)); width: calc(50% + var(--ct-gap) / 2); border-top: 1px solid var(--ct-line);
+}
+.ct-fams.multi > .ct-fam:first-child:not(:last-child)::after { left: 50%; }
+.ct-fams.multi > .ct-fam:last-child:not(:first-child)::after { right: 50%; }
+.ct-fams.multi > .ct-fam:not(:first-child):not(:last-child)::after {
+  content: ''; position: absolute; top: calc(-1 * var(--ct-drop)); left: calc(-1 * var(--ct-gap) / 2); right: calc(-1 * var(--ct-gap) / 2); border-top: 1px solid var(--ct-line);
+}
+.ct-label { font-size: 0.8em; color: #666; white-space: nowrap; }
+/* Children: drop line into each, bar across siblings */
+.ct-kids { display: flex; gap: 0.75rem; align-items: flex-start; padding-top: var(--ct-drop); position: relative; }
+.ct-kids > .ct-node::before {
+  content: ''; position: absolute; left: 50%; top: calc(-1 * var(--ct-drop)); height: var(--ct-drop); border-left: 1px solid var(--ct-line);
+}
+.ct-kids > .ct-node:first-child:not(:last-child)::after,
+.ct-kids > .ct-node:last-child:not(:first-child)::after {
+  content: ''; position: absolute; top: calc(-1 * var(--ct-drop)); width: calc(50% + 0.375rem); border-top: 1px solid var(--ct-line);
+}
+.ct-kids > .ct-node:first-child:not(:last-child)::after { left: 50%; }
+.ct-kids > .ct-node:last-child:not(:first-child)::after { right: 50%; }
+.ct-kids > .ct-node:not(:first-child):not(:last-child)::after {
+  content: ''; position: absolute; top: calc(-1 * var(--ct-drop)); left: -0.375rem; right: -0.375rem; border-top: 1px solid var(--ct-line);
+}
+
+
+/* Shared ancestry layout overrides */
+.spouse-shared-ancestry {
+    box-sizing: border-box;
+    width: calc(200% + 1.5rem);
+    max-width: none;
+    padding: 1rem 1.25rem;
+    margin: 0.8rem 0 1rem;
+    border-left: 3px solid #b58b45;
+    background: #f7f5ef;
+    border-radius: 0 6px 6px 0;
+}
+
+.shared-ancestor {
+    margin-top: 1rem;
+    padding-bottom: 0.75rem;
+}
+
+.shared-ancestor + .shared-ancestor {
+    border-top: 1px solid #ded8ca;
+    padding-top: 0.8rem;
+}
+
+.shared-ancestor-paths {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 2rem;
+}
+
+.shared-ancestor-paths ol {
+    list-style: none;
+    padding: 0;
+    margin: 0.4rem 0 0;
+}
+
+.shared-ancestor-paths li {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin: 0.45rem 0;
+}
+
+.shared-ancestor-paths .path-hop {
+    display: inline-block;
+    min-width: 6.5em;
+    color: #777;
+    white-space: nowrap;
+}
+
+.shared-ancestor-paths .path-arrow {
+    color: #8a9aaa;
+    font-weight: bold;
+    margin-right: 0.25rem;
+}
+
+@media (max-width: 600px) {
+    .spouse-shared-ancestry {
+        width: 100%;
+    }
+
+    .shared-ancestor-paths {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Shared ancestry refinements */
+.shared-ancestor-title {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.shared-ancestor-title a {
+    font-weight: bold;
+}
+
+.shared-ancestor-paths {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 2.5rem;
+}
+
+.shared-ancestor-paths ol {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   Responsive person profile
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+.person-detail,
+.person-detail > * {
+    min-width: 0;
+}
+
+/* Profile header */
+@media (max-width: 700px) {
+
+    .person-header {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 112px;
+        gap: 0.75rem;
+        align-items: start;
+        width: 100%;
+    }
+
+    .person-header-info {
+        min-width: 0;
+        overflow-wrap: anywhere;
+    }
+
+    .person-header-info h1 {
+        font-size: clamp(1.5rem, 5.5vw, 2.2rem);
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+        word-break: normal;
+        margin-top: 0.25rem;
+    }
+
+    .person-header-photo {
+        width: 112px;
+        min-height: 0;
+        justify-self: end;
+    }
+
+    .person-header-photo .person-photo {
+        width: 112px;
+        height: 126px;
+        object-fit: cover;
+    }
+
+    /* Profile navigation */
+    .person-tabs {
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 0;
+    }
+
+    .person-tabs a,
+    .person-tabs span {
+        padding: 0.45rem 0.65rem;
+        font-size: 0.82rem;
+        white-space: normal;
+    }
+
+    /* Profile overview: eliminate empty second column */
+    .profile-overview {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        width: 100%;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .profile-overview > div {
+        min-width: 0;
+        width: 100%;
+    }
+
+    /* All profile sections use available width */
+    .person-detail .events,
+    .person-detail .ancestors,
+    .person-detail .descendants,
+    .person-detail .relation-path {
+        width: 100%;
+        min-width: 0;
+        padding: 1rem;
+    }
+
+    /* Shared ancestry */
+    .spouse-shared-ancestry {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.85rem;
+    }
+
+    .shared-ancestor-paths {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.5rem;
+    }
+
+    .shared-ancestor-paths .path-hop {
+        min-width: 0;
+    }
+
+    /* Tables should not force the page wider */
+    .events table {
+        width: 100%;
+        table-layout: auto;
+    }
+
+    .events th,
+    .events td {
+        overflow-wrap: anywhere;
+    }
+}
+
+/* Very narrow phones */
+@media (max-width: 420px) {
+
+    .person-header {
+        grid-template-columns: minmax(0, 1fr) 88px;
+        gap: 0.5rem;
+    }
+
+    .person-header-photo {
+        width: 88px;
+    }
+
+    .person-header-photo .person-photo {
+        width: 88px;
+        height: 105px;
+    }
+
+    .person-header-info h1 {
+        font-size: 1.55rem;
+    }
+
+    .shared-ancestor-paths {
+        grid-template-columns: 1fr;
+    }
+
+    .person-tabs a,
+    .person-tabs span {
+        padding: 0.4rem 0.5rem;
+        font-size: 0.78rem;
+    }
+}
+
+/* =====================================================
+   Compact mobile typography and spacing
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    /* Overall profile scale */
+    .person-detail {
+        font-size: 0.88rem;
+        line-height: 1.45;
+    }
+
+    /* Section headings */
+    .person-detail h2 {
+        font-size: 1.15rem;
+        line-height: 1.3;
+        margin-bottom: 0.7rem;
+    }
+
+    .person-detail h3 {
+        font-size: 0.88rem;
+        margin-top: 0.8rem;
+        margin-bottom: 0.4rem;
+    }
+
+    /* Reduce section padding */
+    .profile-overview,
+    .person-detail .events,
+    .person-detail .ancestors,
+    .person-detail .descendants {
+        padding: 0.8rem;
+    }
+
+    .profile-overview {
+        gap: 0.75rem;
+    }
+
+    /* Lists */
+    .person-detail ul {
+        padding-left: 1.1rem;
+    }
+
+    .person-detail li {
+        margin-bottom: 0.2rem;
+    }
+
+    /* Life events table */
+    .events table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        font-size: 0.78rem;
+        line-height: 1.4;
+        border-collapse: collapse;
+    }
+
+    .events th,
+    .events td {
+        padding: 0.3rem 0.35rem;
+        vertical-align: top;
+    }
+
+    .events th {
+        font-size: 0.74rem;
+        white-space: nowrap;
+    }
+
+    /* Keep dates and ages readable */
+    .events td:first-child,
+    .events td:nth-child(2) {
+        white-space: nowrap;
+    }
+
+    /* Shared ancestry */
+    .spouse-shared-ancestry {
+        font-size: 0.84rem;
+        line-height: 1.4;
+        padding: 0.75rem;
+    }
+
+    .shared-ancestor-title {
+        font-size: 0.88rem;
+        margin-bottom: 0.65rem;
+    }
+
+    .shared-ancestor-paths {
+        font-size: 0.82rem;
+        gap: 0.5rem 0.8rem;
+    }
+
+    .shared-ancestor-paths li {
+        margin: 0.3rem 0;
+    }
+
+    /* General metadata */
+    .years,
+    .ancestor-badge {
+        font-size: 0.75rem;
+    }
+}
+
+/* Extra compact on narrow phones */
+@media (max-width: 420px) {
+    .person-detail {
+        font-size: 0.82rem;
+    }
+
+    .person-detail h2 {
+        font-size: 1.05rem;
+    }
+
+    .person-detail h3 {
+        font-size: 0.82rem;
+    }
+
+    .profile-overview,
+    .person-detail .events {
+        padding: 0.7rem;
+    }
+
+    .events table {
+        font-size: 0.73rem;
+    }
+}
+
+
+/* =====================================================
+   Shared ancestry: always side-by-side on mobile
+   ===================================================== */
+
+@media (max-width: 700px) {
+    .spouse-shared-ancestry {
+        font-size: 0.78rem;
+        padding: 0.65rem;
+    }
+
+    .spouse-shared-ancestry > strong {
+        font-size: 0.82rem;
+    }
+
+    .spouse-shared-ancestry > .ancestor-badge {
+        font-size: 0.65rem;
+        white-space: nowrap;
+    }
+
+    .shared-ancestor-title {
+        font-size: 0.82rem;
+        text-align: center;
+        margin-bottom: 0.6rem;
+    }
+
+    .shared-ancestor-paths {
+        display: grid !important;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 0.4rem;
+    }
+
+    .shared-ancestor-paths > div {
+        min-width: 0;
+    }
+
+    .shared-ancestor-paths ol {
+        padding: 0;
+        margin: 0;
+    }
+
+    .shared-ancestor-paths li {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.15rem;
+        font-size: 0.76rem;
+        margin: 0.35rem 0;
+        overflow-wrap: anywhere;
+    }
+
+    .shared-ancestor-paths .path-hop {
+        min-width: 0;
+        font-size: 0.72rem;
+    }
+
+    .shared-ancestor-paths .path-arrow {
+        margin-right: 0.1rem;
+    }
+}
+
+/* Override the previous single-column rule on narrow phones */
+@media (max-width: 420px) {
+    .shared-ancestor-paths {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+
+    .shared-ancestor-paths li {
+        font-size: 0.70rem;
+    }
+
+    .shared-ancestor-paths .path-hop {
+        font-size: 0.68rem;
+    }
+}
+
+
+
+/* =====================================================
+   Pedigree cards with portrait thumbnails
+   ===================================================== */
+
+/* Default card: preserve existing appearance */
+.pedigree-cell {
+    text-align: center;
+    align-items: center;
+}
+
+/* Card containing a photograph */
+.pedigree-cell.has-photo {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    text-align: left;
+    gap: 12px;
+    padding: 0.55rem 0.7rem;
+    min-width: 210px;
+}
+
+/* Circular portrait */
+.pedigree-photo {
+    display: block;
+    flex: 0 0 76px;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    border: 1px solid rgba(90, 62, 40, 0.2);
+}
+
+/* Name and dates */
+.pedigree-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    flex: 1;
+    min-width: 0;
+    gap: 0.2rem;
+}
+
+.pedigree-cell.has-photo .pedigree-name {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    text-overflow: clip;
+    line-height: 1.3;
+}
+
+.pedigree-cell.has-photo .pedigree-years {
+    font-size: 0.8rem;
+}
+
+/* Ensure cards with photos have enough grid space */
+.pedigree-chart {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(210px, 1fr)
+    );
+}
+
+
+/* =====================================================
+   Explore tree: portrait cards
+   ===================================================== */
+
+/* Text wrapper, including cards without photos */
+.ex-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+    gap: 0.2rem;
+}
+
+/* Cards with photographs */
+.ex-box.has-photo {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: left;
+    gap: 12px;
+    min-width: 230px;
+    max-width: 260px;
+    padding: 0.65rem 0.8rem;
+}
+
+.ex-box.has-photo .ex-photo {
+    display: block;
+    flex: 0 0 64px;
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+    border: 1px solid rgba(90, 62, 40, 0.2);
+}
+
+.ex-box.has-photo .ex-content {
+    align-items: flex-start;
+    text-align: left;
+    flex: 1;
+}
+
+.ex-box.has-photo .ex-name {
+    text-align: left;
+    overflow-wrap: anywhere;
+    line-height: 1.3;
+}
+
+/* Smaller spouse/partner cards */
+.ex-box.ex-small.has-photo {
+    min-width: 145px;
+    max-width: 190px;
+    gap: 7px;
+    padding: 0.35rem 0.45rem;
+}
+
+.ex-box.ex-small.has-photo .ex-photo {
+    flex-basis: 36px;
+    width: 36px;
+    height: 36px;
+}
+
+.ex-box.ex-small.has-photo .ex-content {
+    font-size: 0.76rem;
+}
+
+/* Preserve existing layout when no photo is available */
+.ex-box:not(.has-photo) .ex-content {
+    align-items: center;
+    text-align: center;
+}
